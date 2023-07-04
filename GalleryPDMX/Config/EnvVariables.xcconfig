@@ -1,0 +1,11 @@
+//
+//  EnvVariables.xcconfig
+//  GalleryPDMX
+//
+//  Created by Daniel Sanchez on 03/07/23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+UNSPLASH_API_ACCESS_KEY = 2rKlqomwaT71RBEh2X9tlTinXZ5YusBabOgXQQaDLJ8
