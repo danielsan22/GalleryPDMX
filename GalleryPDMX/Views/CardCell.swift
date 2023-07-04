@@ -8,6 +8,7 @@
 import UIKit
 
 class CardCell: UICollectionViewCell {
+    static let identifier = String(describing: Self)
     
     let label = UILabel()
     let imageView = UIImageView()

@@ -10,7 +10,7 @@ import Foundation
 enum Config {
     
     enum Key: String {
-        case unsplashAccesKey = "UNSPLASH_API_ACCESS_KEY"
+        case unsplashAccessKey = "UNSPLASH_API_ACCESS_KEY"
     }
     
     enum Error: Swift.Error {
@@ -35,5 +35,5 @@ enum Config {
 }
 
 extension Config {
-    static var unsplashAccesKey: String  { try! Config.value(for: .unsplashAccesKey) }
+    static var unsplashAccessKey: String  { try! Config.value(for: .unsplashAccessKey) }
 }

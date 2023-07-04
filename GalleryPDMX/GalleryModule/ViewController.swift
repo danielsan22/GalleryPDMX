@@ -10,28 +10,19 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private let galleryClient: GalleryClient
     private var subscriptions = Set<AnyCancellable>()
-    private var images: [GalleryImage] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
-    private var total: Int = 0
-    private var totalPages: Int = 0
-    private var currentPage = 1
-    private var isLoading = false
+    private let presenter: GalleryPresenter
     
     private lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
-        cv.register(CardCell.self, forCellWithReuseIdentifier: "Cell")
+        cv.register(CardCell.self, forCellWithReuseIdentifier: CardCell.identifier)
         cv.dataSource = self
         cv.delegate = self
         return cv
     }()
     
-    init(galleryClient: GalleryClient) {
-        self.galleryClient = galleryClient
+    init(presenter: GalleryPresenter) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,7 +33,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        loadData()
+        setupObservers()
+        presenter.fetch()
+    }
+    
+    private func setupObservers() {
+        presenter.images.sink { data in
+            self.collectionView.reloadData()
+        }.store(in: &subscriptions)
     }
     
     private func setupViews() {
@@ -67,49 +65,17 @@ class ViewController: UIViewController {
         }
         return l
     }
-    
-    private func loadData() {
-        isLoading = true
-        galleryClient
-            .fetchImages(page: currentPage)
-            .asyncMap { response in
-                var response = response
-                let images = try? await response
-                    .results
-                    .concurrentMap { item in
-                        var item = item
-                        guard let imageURL = URL(string: item.urls?.small ?? "") else { return item }
-                        let imageDownloadResult = try? await URLSession.shared.data(for: URLRequest(url: imageURL))
-                        if let data = imageDownloadResult?.0 {
-                            item.image = UIImage(data: data)
-                        }
-                        return item
-                    }
-                response.results = images ?? []
-                return response
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                print(completion)
-                self?.isLoading = false
-            } receiveValue: { [weak self] (result: GallerySearchResponse) in
-                print("receive value")
-                self?.images.append(contentsOf: result.results)
-                self?.total = result.total ?? 0
-                self?.totalPages = result.totalPages ?? 0
-            }.store(in: &subscriptions)
-    }
 }
 
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return presenter.images.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CardCell
-        let item = images[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.identifier, for: indexPath) as! CardCell
+        let item = presenter.images.value[indexPath.row]
         cell.label.text = item.description ?? item.altDescription ?? "No Description"
         cell.imageView.image = item.image
         return cell
@@ -119,11 +85,6 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if currentPage < totalPages && indexPath.row == images.count - 1 && !isLoading {
-            currentPage = currentPage + 1
-            isLoading = true
-            print("fetching new for page \(currentPage)")
-//            loadData()
-        }
+        presenter.loadNextPage(for: indexPath)
     }
 }
