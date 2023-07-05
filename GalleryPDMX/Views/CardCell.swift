@@ -8,10 +8,15 @@
 import UIKit
 
 class CardCell: UICollectionViewCell {
-    static let identifier = String(describing: Self)
     
-    let label = UILabel()
-    let imageView = UIImageView()
+    private(set) var label: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    private(set) var imageView:UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +30,6 @@ class CardCell: UICollectionViewCell {
     
     private func commonInit() {
         let bv = imageView
-        label.text = "Label"
         label.textAlignment = .center
         bv.addSubview(label)
         label.fillSuperview()
@@ -33,3 +37,11 @@ class CardCell: UICollectionViewCell {
         bv.fillSuperview()
     }
 }
+
+extension UICollectionViewCell {
+    static var reuseIdentifier: String {
+        return String(describing: Self.self)
+    }
+}
+
+

@@ -12,10 +12,13 @@ class ViewController: UIViewController {
     
     private var subscriptions = Set<AnyCancellable>()
     private let presenter: GalleryPresenter
+    private lazy var emptyView: UIView = EmptyGalleryView()
+    private let animationDuration: Double = 0.2
+    private let delayBase: Double = 0.05
     
     private lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
-        cv.register(CardCell.self, forCellWithReuseIdentifier: CardCell.identifier)
+        cv.register(CardCell.self, forCellWithReuseIdentifier: CardCell.reuseIdentifier)
         cv.dataSource = self
         cv.delegate = self
         return cv
@@ -74,10 +77,11 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.identifier, for: indexPath) as! CardCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.reuseIdentifier, for: indexPath) as! CardCell
         let item = presenter.images.value[indexPath.row]
         cell.label.text = item.description ?? item.altDescription ?? "No Description"
         cell.imageView.image = item.image
+        cell.contentView.alpha = 0.0
         return cell
     }
 }
@@ -86,5 +90,11 @@ extension ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         presenter.loadNextPage(for: indexPath)
+        
+        let delay = sqrt(Double(indexPath.row)) * delayBase
+        
+        UIView.animate(withDuration: animationDuration, delay: delay, options: .curveEaseOut, animations: {
+            cell.contentView.alpha = 1
+        })
     }
 }
