@@ -114,3 +114,20 @@ extension GallerySearchResponse {
         self.results = resultsDTO.compactMap(GalleryImage.init(dto:))
     }
 }
+
+
+// MARK: - Empty Models/Testing Helpers
+
+extension GalleryImage {
+    static let empty: GalleryImage = .init(id: "", width: 0, height: 0, urls: .empty)
+}
+
+extension GalleryImageURLS {
+    static let empty: GalleryImageURLS = .init(
+        raw: "",
+        full: "",
+        regular: "",
+        small: "",
+        thumb: ""
+    )
+}

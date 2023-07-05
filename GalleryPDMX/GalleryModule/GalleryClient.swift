@@ -12,7 +12,18 @@ enum GalleryClientError: Error {
     case invalidResponse
 }
 
-struct GalleryClient {
+private let galleryJSonDecoder: JSONDecoder = {
+    let jsonDecoder = JSONDecoder()
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    return jsonDecoder
+}()
+
+protocol GalleryClientProviding {
+    
+    func fetchImages(page: Int) -> AnyPublisher<GallerySearchResponseDTO, Error>
+}
+
+struct GalleryClient: GalleryClientProviding {
     
     func fetchImages(page: Int) -> AnyPublisher<GallerySearchResponseDTO, Error> {
         var request = URLRequest(url: URL(string: "https://api.unsplash.com/search/photos?query=porsche&per_page=20&page=\(page)")!)
@@ -29,9 +40,25 @@ struct GalleryClient {
             .eraseToAnyPublisher()
     }
     
-    private let galleryJSonDecoder: JSONDecoder = {
-        let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        return jsonDecoder
-    }()
+}
+
+struct GalleryMockClient: GalleryClientProviding {
+    
+    func fetchImages(page: Int) -> AnyPublisher<GallerySearchResponseDTO, Error> {
+        
+        Future<GallerySearchResponseDTO, Error> { promise in
+            guard let url = Bundle.main.url(forResource: "mock", withExtension: "json") else {
+                promise(.failure(GalleryClientError.invalidResponse))
+                return
+            }
+            
+            guard let data = try? Data(contentsOf: url),
+                  let result = try? galleryJSonDecoder.decode(GallerySearchResponseDTO.self, from: data) else {
+                promise(.failure(GalleryClientError.invalidResponse))
+                return
+            }
+            
+            promise(.success(result))
+        }.eraseToAnyPublisher()
+    }
 }

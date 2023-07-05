@@ -23,7 +23,19 @@
 		6500C5312A54AD0200BB4763 /* GalleryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500C5302A54AD0200BB4763 /* GalleryPresenter.swift */; };
 		6500C5332A54CB8800BB4763 /* EmptyGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6500C5322A54CB8800BB4763 /* EmptyGalleryView.swift */; };
 		6500C5352A54D0CE00BB4763 /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 6500C5342A54D0CE00BB4763 /* mock.json */; };
+		6582BA8A2A55D44F00FA5785 /* AppWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6582BA892A55D44F00FA5785 /* AppWireframe.swift */; };
+		6582BA922A55DF6900FA5785 /* GalleryPDMXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6582BA912A55DF6900FA5785 /* GalleryPDMXTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6582BA932A55DF6900FA5785 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6500C4FB2A533F4600BB4763 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6500C5022A533F4600BB4763;
+			remoteInfo = GalleryPDMX;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6500C5032A533F4600BB4763 /* GalleryPDMX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GalleryPDMX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,10 +57,20 @@
 		6500C5302A54AD0200BB4763 /* GalleryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPresenter.swift; sourceTree = "<group>"; };
 		6500C5322A54CB8800BB4763 /* EmptyGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGalleryView.swift; sourceTree = "<group>"; };
 		6500C5342A54D0CE00BB4763 /* mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
+		6582BA892A55D44F00FA5785 /* AppWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWireframe.swift; sourceTree = "<group>"; };
+		6582BA8F2A55DF6900FA5785 /* GalleryPDMXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GalleryPDMXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6582BA912A55DF6900FA5785 /* GalleryPDMXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPDMXTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6500C5002A533F4600BB4763 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6582BA8C2A55DF6900FA5785 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -62,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				6500C5052A533F4600BB4763 /* GalleryPDMX */,
+				6582BA902A55DF6900FA5785 /* GalleryPDMXTests */,
 				6500C5042A533F4600BB4763 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				6500C5032A533F4600BB4763 /* GalleryPDMX.app */,
+				6582BA8F2A55DF6900FA5785 /* GalleryPDMXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,6 +111,7 @@
 				6500C50F2A533F4800BB4763 /* Assets.xcassets */,
 				6500C5112A533F4800BB4763 /* LaunchScreen.storyboard */,
 				6500C5142A533F4800BB4763 /* Info.plist */,
+				6582BA892A55D44F00FA5785 /* AppWireframe.swift */,
 			);
 			path = GalleryPDMX;
 			sourceTree = "<group>";
@@ -131,6 +156,14 @@
 			path = GalleryModule;
 			sourceTree = "<group>";
 		};
+		6582BA902A55DF6900FA5785 /* GalleryPDMXTests */ = {
+			isa = PBXGroup;
+			children = (
+				6582BA912A55DF6900FA5785 /* GalleryPDMXTests.swift */,
+			);
+			path = GalleryPDMXTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,6 +184,24 @@
 			productReference = 6500C5032A533F4600BB4763 /* GalleryPDMX.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6582BA8E2A55DF6900FA5785 /* GalleryPDMXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6582BA952A55DF6900FA5785 /* Build configuration list for PBXNativeTarget "GalleryPDMXTests" */;
+			buildPhases = (
+				6582BA8B2A55DF6900FA5785 /* Sources */,
+				6582BA8C2A55DF6900FA5785 /* Frameworks */,
+				6582BA8D2A55DF6900FA5785 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6582BA942A55DF6900FA5785 /* PBXTargetDependency */,
+			);
+			name = GalleryPDMXTests;
+			productName = GalleryPDMXTests;
+			productReference = 6582BA8F2A55DF6900FA5785 /* GalleryPDMXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -163,6 +214,10 @@
 				TargetAttributes = {
 					6500C5022A533F4600BB4763 = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					6582BA8E2A55DF6900FA5785 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 6500C5022A533F4600BB4763;
 					};
 				};
 			};
@@ -180,6 +235,7 @@
 			projectRoot = "";
 			targets = (
 				6500C5022A533F4600BB4763 /* GalleryPDMX */,
+				6582BA8E2A55DF6900FA5785 /* GalleryPDMXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -195,6 +251,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6582BA8D2A55DF6900FA5785 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -206,6 +269,7 @@
 				6500C5312A54AD0200BB4763 /* GalleryPresenter.swift in Sources */,
 				6500C50B2A533F4600BB4763 /* ViewController.swift in Sources */,
 				6500C51E2A53490800BB4763 /* UIViewExtensions.swift in Sources */,
+				6582BA8A2A55D44F00FA5785 /* AppWireframe.swift in Sources */,
 				6500C52F2A54A46500BB4763 /* GalleryInteractor.swift in Sources */,
 				6500C5332A54CB8800BB4763 /* EmptyGalleryView.swift in Sources */,
 				6500C5072A533F4600BB4763 /* AppDelegate.swift in Sources */,
@@ -218,7 +282,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6582BA8B2A55DF6900FA5785 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6582BA922A55DF6900FA5785 /* GalleryPDMXTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6582BA942A55DF6900FA5785 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6500C5022A533F4600BB4763 /* GalleryPDMX */;
+			targetProxy = 6582BA932A55DF6900FA5785 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6500C5112A533F4800BB4763 /* LaunchScreen.storyboard */ = {
@@ -404,6 +484,42 @@
 			};
 			name = Release;
 		};
+		6582BA962A55DF6900FA5785 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 58WD93BVUN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dsr.GalleryPDMXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GalleryPDMX.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GalleryPDMX";
+			};
+			name = Debug;
+		};
+		6582BA972A55DF6900FA5785 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 58WD93BVUN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dsr.GalleryPDMXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GalleryPDMX.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GalleryPDMX";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -421,6 +537,15 @@
 			buildConfigurations = (
 				6500C5182A533F4800BB4763 /* Debug */,
 				6500C5192A533F4800BB4763 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6582BA952A55DF6900FA5785 /* Build configuration list for PBXNativeTarget "GalleryPDMXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6582BA962A55DF6900FA5785 /* Debug */,
+				6582BA972A55DF6900FA5785 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

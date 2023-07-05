@@ -17,17 +17,27 @@ protocol GalleryInteracting {
 }
 
 class GalleryInteractor: GalleryInteracting {
-    private let client: GalleryClient
+    private let client: GalleryClientProviding
     private(set) var total: Int = 0
     private(set) var totalPages: Int = 0
     private(set) var currentPage = 0
     private var currentItems = 0
     
-    init(provider: GalleryClient) {
-        self.client = provider
+    init(client: GalleryClientProviding) {
+        self.client = client
     }
     
     func fetchGallery() -> AnyPublisher<GallerySearchResponse, Error> {
+        guard currentPage == 0 || currentPage < totalPages else {
+            return Just(
+                GallerySearchResponse(
+                    total: total,
+                    totalPages: totalPages,
+                    results: []))
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+        }
+        
         currentPage += 1
         return client
             .fetchImages(page: currentPage)
