@@ -13,14 +13,16 @@ class EmptyGalleryView: UIView {
         let imageView = UIImageView(image: UIImage(systemName: "photo.fill.on.rectangle.fill"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
         return imageView
     }()
     private let messageLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .darkGray
+        label.textColor = .lightText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
         label.text = "We currently do not have any images to show"
         return label
     }()
@@ -42,8 +44,8 @@ class EmptyGalleryView: UIView {
         layout {
             iconView.centerXAnchor.constraint(equalTo: $0.centerXAnchor)
             iconView.centerYAnchor.constraint(equalTo: $0.centerYAnchor)
-            iconView.heightAnchor.constraint(equalToConstant: 48)
-            iconView.widthAnchor.constraint(equalToConstant: 48)
+            iconView.heightAnchor.constraint(equalToConstant: 72)
+            iconView.widthAnchor.constraint(equalToConstant: 72)
             
             messageLabel.centerXAnchor.constraint(equalTo: $0.centerXAnchor)
             messageLabel.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 16)

@@ -12,12 +12,6 @@ enum GalleryClientError: Error {
     case invalidResponse
 }
 
-private let galleryJSonDecoder: JSONDecoder = {
-    let jsonDecoder = JSONDecoder()
-    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-    return jsonDecoder
-}()
-
 protocol GalleryClientProviding {
     
     func fetchImages(page: Int) -> AnyPublisher<GallerySearchResponseDTO, Error>
@@ -39,26 +33,35 @@ struct GalleryClient: GalleryClientProviding {
             .decode(type: GallerySearchResponseDTO.self, decoder: galleryJSonDecoder)
             .eraseToAnyPublisher()
     }
-    
 }
 
 struct GalleryMockClient: GalleryClientProviding {
     
     func fetchImages(page: Int) -> AnyPublisher<GallerySearchResponseDTO, Error> {
-        
         Future<GallerySearchResponseDTO, Error> { promise in
             guard let url = Bundle.main.url(forResource: "mock", withExtension: "json") else {
                 promise(.failure(GalleryClientError.invalidResponse))
                 return
             }
-            
             guard let data = try? Data(contentsOf: url),
                   let result = try? galleryJSonDecoder.decode(GallerySearchResponseDTO.self, from: data) else {
                 promise(.failure(GalleryClientError.invalidResponse))
                 return
             }
-            
             promise(.success(result))
         }.eraseToAnyPublisher()
     }
 }
+
+struct FailingGalleryMockClient: GalleryClientProviding {
+    
+    func fetchImages(page: Int) -> AnyPublisher<GallerySearchResponseDTO, Error> {
+        Fail(error: GalleryClientError.invalidResponse).eraseToAnyPublisher()
+    }
+}
+
+private let galleryJSonDecoder: JSONDecoder = {
+    let jsonDecoder = JSONDecoder()
+    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+    return jsonDecoder
+}()
